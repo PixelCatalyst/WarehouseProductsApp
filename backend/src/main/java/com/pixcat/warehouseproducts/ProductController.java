@@ -1,6 +1,7 @@
 package com.pixcat.warehouseproducts;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -32,6 +33,7 @@ public class ProductController {
                         .build());
     }
 
+    @Secured("ROLE_GET_ALL_PRODUCTS")
     @GetMapping(value = "/products", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ProductDto>> getAllProducts() {
         final var productDtos = inMemoryProducts.values().stream()
