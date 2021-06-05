@@ -4,6 +4,13 @@
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.pixcat.warehouseproducts.WarehouseProductsApplication" />
     <option name="ALTERNATIVE_JRE_PATH" />
     <option name="SHORTEN_COMMAND_LINE" value="NONE" />
+    <envs>
+      <env name="POSTGRES_USERNAME" value="warehouseproducts" />
+      <env name="POSTGRES_PASSWORD" value="warehouseproducts" />
+      <env name="POSTGRES_HOST" value="localhost" />
+      <env name="POSTGRES_PORT" value="9000" />
+      <env name="POSTGRES_DB" value="product_details" />
+    </envs>
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

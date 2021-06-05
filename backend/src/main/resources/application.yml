@@ -1,0 +1,9 @@
+
+spring:
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}?user=${POSTGRES_USERNAME}&password=${POSTGRES_PASSWORD}
+    sql:
+        init:
+            enabled: true
+            schema-locations: classpath:db/schema.sql

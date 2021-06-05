@@ -4,7 +4,7 @@ services:
     build: .
     container_name: warehouse-products
     env_file:
-      - ./config/warehouse-products.env
+      - local-config/warehouse-products.env
     ports:
       - "8080:8080"
   posgtres:

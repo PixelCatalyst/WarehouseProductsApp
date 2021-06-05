@@ -17,14 +17,20 @@ repositories {
     mavenCentral()
 }
 
+ext.versions = [:]
+versions += [spring: '2.5.0']
+versions += [postgresql: '42.2.20']
+
 dependencies {
     runtimeOnly project(':frontend')
     implementation project(':frontend')
 
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation "org.springframework.boot:spring-boot-starter-web:${versions.spring}"
+    implementation "org.springframework.boot:spring-boot-starter-jdbc:${versions.spring}"
+    implementation "org.springframework.boot:spring-boot-starter-security:${versions.spring}"
+    implementation "org.postgresql:postgresql:${versions.postgresql}"
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation "org.springframework.boot:spring-boot-starter-test:${versions.spring}"
 }
 
 bootRun.dependsOn(':frontend:bundle')
