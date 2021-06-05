@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  warehouse-products:
+    build: .
+    container_name: warehouse-products
+    env_file:
+      - ./config/warehouse-products.env
+    ports:
+      - "8080:8080"
+  posgtres:
+    image: postgres
+    container_name: postgres
+    environment:
+      POSTGRES_DB: product_details
+      POSTGRES_USER: warehouseproducts
+      POSTGRES_PASSWORD: warehouseproducts
+    ports:
+      - "9000:5432"
