@@ -18,6 +18,7 @@ repositories {
 }
 
 dependencies {
+    runtimeOnly project(':frontend')
     implementation project(':frontend')
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -28,6 +29,11 @@ dependencies {
 
 bootRun.dependsOn(':frontend:bundle')
 bootRunMainClassName.dependsOn(':frontend:bundle')
+bootJar.dependsOn(':frontend:bundle')
+bootJarMainClassName.dependsOn(':frontend:bundle')
+
+compileTestJava.dependsOn(':frontend:bundle')
+test.dependsOn(':frontend:bundle')
 
 test {
     useJUnitPlatform()
