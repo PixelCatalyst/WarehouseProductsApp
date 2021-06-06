@@ -7,7 +7,7 @@ services:
       - local-config/warehouse-products.env
     ports:
       - "8080:8080"
-  posgtres:
+  postgres:
     image: postgres
     container_name: postgres
     environment:
