@@ -7,9 +7,10 @@ function help() {
   echo "This scripts helps with building and running local app stack"
   echo ""
   echo "Commands:"
-  printf "  build\t\tPerform clean build of all services\n"
-  printf "  run\t\tPerform clean build, recreate and run all containers in docker-compose\n"
-  printf "  stop\t\tStop and remove all running containers\n"
+  printf "  build\t\t\tPerform clean build of all services\n"
+  printf "  run\t\t\tPerform clean build, recreate and run all containers in docker-compose\n"
+  printf "  create-test-users\tRegister test user accounts in the app\n"
+  printf "  stop\t\t\tStop and remove all running containers\n"
 }
 
 case "$1" in
@@ -19,6 +20,21 @@ case "$1" in
 "run")
   gradle clean build
   docker-compose up -d --build
+  ;;
+"create-test-users")
+  printf "Creating test user credentials as read-only: jan.kowalski_ro husky1...\n"
+  curl --request POST -S \
+    -H "Content-Type: application/json" \
+    -d '{"username": "jan.kowalski_ro", "password": "husky1", "roles": ["READ_PRODUCTS", "READ_BULK_PRODUCTS"]}' \
+    --url 'localhost:8080/register'
+
+  printf "\nCreating test user credentials as read-write: jan.kowalski_rw hunter2...\n"
+  curl --request POST -S \
+    -H "Content-Type: application/json" \
+    -d '{"username": "jan.kowalski_rw", "password": "hunter2", "roles": ["READ_PRODUCTS", "READ_BULK_PRODUCTS", "WRITE_PRODUCTS"]}' \
+    --url 'localhost:8080/register'
+
+  printf "\nCreating users done\n"
   ;;
 "stop")
   docker-compose down

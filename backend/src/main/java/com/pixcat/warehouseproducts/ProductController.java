@@ -33,7 +33,7 @@ public class ProductController {
                         .build());
     }
 
-    @Secured("ROLE_GET_ALL_PRODUCTS")
+    @Secured("ROLE_READ_BULK_PRODUCTS")
     @GetMapping(value = "/products", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ProductDto>> getAllProducts() {
         final var productDtos = inMemoryProducts.values().stream()
@@ -42,6 +42,7 @@ public class ProductController {
         return ResponseEntity.ok(productDtos);
     }
 
+    @Secured("ROLE_READ_PRODUCTS")
     @GetMapping(value = "/products/{productId}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ProductDto> getProduct(@PathVariable("productId") ProductId productId) {
         final var product = inMemoryProducts.get(productId);
@@ -51,6 +52,7 @@ public class ProductController {
         return ResponseEntity.ok(ProductDto.of(product));
     }
 
+    @Secured("ROLE_WRITE_PRODUCTS")
     @PutMapping(value = "/products/{productId}", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> putProduct(
             @PathVariable("productId") ProductId productId,
