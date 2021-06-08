@@ -1,9 +1,11 @@
 package com.pixcat.warehouseproducts;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,9 +17,14 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping("/v1")
 public class ProductController {
 
-    private final Map<ProductId, ProductDetails> inMemoryProducts = new HashMap<>();
+    private final static String ALL_IMAGES_MEDIA_TYPE = "image/*";
 
-    public ProductController() {
+    private final Map<ProductId, ProductDetails> inMemoryProducts = new HashMap<>();
+    private final ImageRepository imageRepository;
+
+    public ProductController(@Autowired ImageRepository imageRepository) {
+        this.imageRepository = imageRepository;
+
         inMemoryProducts.put(
                 ProductId.of("TEST-101"),
                 ProductDetails.builder()
@@ -64,5 +71,18 @@ public class ProductController {
         inMemoryProducts.put(productId, product);
 
         return ResponseEntity.ok().build();
+    }
+
+    @Secured("ROLE_WRITE_PRODUCTS")
+    @PutMapping(value = "/products/{productId}/image", consumes = ALL_IMAGES_MEDIA_TYPE)
+    public ResponseEntity<Void> putProductImage(
+            @PathVariable("productId") ProductId productId,
+            @RequestHeader(value = "Content-Type") String contentType,
+            InputStream image) {
+        if (inMemoryProducts.containsKey(productId)) {
+            imageRepository.saveImage(productId, new ImagePayload()); // TODO image payload reading
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }
