@@ -16,3 +16,15 @@ services:
       POSTGRES_PASSWORD: warehouseproducts
     ports:
       - "9000:5432"
+  minio-s3:
+    image: minio/minio
+    container_name: minio-s3
+    command: minio server /data
+    environment:
+      MINIO_ACCESS_KEY: local.s3
+      MINIO_SECRET_KEY: local.s3
+      MINIO_DOMAIN: localhost,minio-s3
+    ports:
+       - "7000:9000"
+    tmpfs:
+      - /data
