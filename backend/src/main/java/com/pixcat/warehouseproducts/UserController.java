@@ -1,5 +1,6 @@
 package com.pixcat.warehouseproducts;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+@Slf4j
 @RestController
 public class UserController {
 
@@ -25,6 +27,8 @@ public class UserController {
 
     @PostMapping(value = "/register", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> registerUser(@RequestBody UserDto userDto) {
+        log.info("Register user");
+
         final var user = User.of(userDto, passwordEncoder);
         userRepository.addUser(user);
         return ResponseEntity.ok().build();
@@ -32,6 +36,8 @@ public class UserController {
 
     @GetMapping(value = "/users", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<List<String>> getAllUsers() {
+        log.info("Get all usernames");
+
         return ResponseEntity.ok(userRepository.getAllUsernames());
     }
 }

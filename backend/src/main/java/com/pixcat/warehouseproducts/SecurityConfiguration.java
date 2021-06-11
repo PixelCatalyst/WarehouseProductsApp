@@ -1,5 +1,6 @@
 package com.pixcat.warehouseproducts;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
 
+@Slf4j
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
@@ -54,5 +56,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and().httpBasic().realmName("WarehouseProducts")
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().csrf().disable();
+
+        log.debug("Security configured");
     }
 }

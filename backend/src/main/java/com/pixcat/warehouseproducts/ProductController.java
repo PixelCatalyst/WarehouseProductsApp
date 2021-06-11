@@ -1,5 +1,6 @@
 package com.pixcat.warehouseproducts;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+@Slf4j
 @RestController
 @RequestMapping("/v1")
 public class ProductController {
@@ -43,6 +45,8 @@ public class ProductController {
     @Secured("ROLE_READ_BULK_PRODUCTS")
     @GetMapping(value = "/products", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ProductDto>> getAllProducts() {
+        log.info("Get all products");
+
         final var productDtos = inMemoryProducts.values().stream()
                 .map(ProductDto::of)
                 .collect(Collectors.toList());
@@ -52,6 +56,8 @@ public class ProductController {
     @Secured("ROLE_READ_PRODUCTS")
     @GetMapping(value = "/products/{productId}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ProductDto> getProduct(@PathVariable("productId") ProductId productId) {
+        log.info("Get product {}", productId);
+
         final var product = inMemoryProducts.get(productId);
         if (product == null) {
             return ResponseEntity.notFound().build();
@@ -64,6 +70,8 @@ public class ProductController {
     public ResponseEntity<Void> putProduct(
             @PathVariable("productId") ProductId productId,
             @RequestBody ProductDto productDto) {
+        log.info("Put product {}", productId);
+
         final var product = ProductDetails.of(productDto);
         if (!product.getId().equals(productId)) {
             return ResponseEntity.badRequest().build();
@@ -79,8 +87,10 @@ public class ProductController {
             @PathVariable("productId") ProductId productId,
             @RequestHeader(value = "Content-Type") String contentType,
             InputStream image) {
+        log.info("Put product {} image", productId);
+
         if (inMemoryProducts.containsKey(productId)) {
-            imageRepository.saveImage(productId, new ImagePayload()); // TODO image payload reading
+            imageRepository.saveImage(productId, ImagePayload.of(image, contentType));
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();

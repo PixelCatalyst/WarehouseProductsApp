@@ -20,6 +20,9 @@ repositories {
 ext.versions = [:]
 versions += [spring: '2.5.0']
 versions += [postgresql: '42.2.20']
+versions += [commonsio: '2.9.0']
+versions += [tika: '1.26']
+versions += [minio: '8.2.1']
 
 dependencies {
     runtimeOnly project(':frontend')
@@ -29,6 +32,10 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-jdbc:${versions.spring}"
     implementation "org.springframework.boot:spring-boot-starter-security:${versions.spring}"
     implementation "org.postgresql:postgresql:${versions.postgresql}"
+    implementation "io.minio:minio:${versions.minio}"
+
+    implementation "commons-io:commons-io:${versions.commonsio}"
+    implementation "org.apache.tika:tika-core:${versions.tika}"
 
     testImplementation "org.springframework.boot:spring-boot-starter-test:${versions.spring}"
 }
