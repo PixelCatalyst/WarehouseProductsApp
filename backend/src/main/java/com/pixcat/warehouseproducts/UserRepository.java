@@ -3,7 +3,8 @@ package com.pixcat.warehouseproducts;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 public class UserRepository {
 
@@ -39,6 +40,6 @@ public class UserRepository {
         final var rows = jdbcTemplate.queryForList(SELECT_ALL_USERS_STATEMENT);
         return rows.stream()
                 .map(e -> (String) e.get("username"))
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 }
