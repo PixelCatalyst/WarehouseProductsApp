@@ -15,7 +15,7 @@ public class ProductDetails {
     private final Millimeters length;
     private final Kilograms weight;
 
-    public static ProductDetails of(ProductDto dto) {
+    public static ProductDetails of(InputProductDto dto) {
         return builder()
                 .id(ProductId.of(dto.getProductId()))
                 .description(dto.getDescription())

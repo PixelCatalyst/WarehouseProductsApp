@@ -6,11 +6,12 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.math.BigDecimal;
+import java.net.URI;
 
 @Builder
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class ProductDto {
+public class OutputProductDto {
 
     private final String productId;
     private final String description;
@@ -20,7 +21,9 @@ public class ProductDto {
     private final int lengthInMillimeters;
     private final BigDecimal weightInKilograms;
 
-    public static ProductDto of(ProductDetails details) {
+    private final URI imageUrl;
+
+    public static OutputProductDto of(ProductDetails details, URI imageUrl) {
         return builder()
                 .productId(details.getId().value)
                 .description(details.getDescription())
@@ -29,6 +32,7 @@ public class ProductDto {
                 .widthInMillimeters(details.getWidth().value)
                 .lengthInMillimeters(details.getLength().value)
                 .weightInKilograms(details.getWeight().value)
+                .imageUrl(imageUrl)
                 .build();
     }
 }

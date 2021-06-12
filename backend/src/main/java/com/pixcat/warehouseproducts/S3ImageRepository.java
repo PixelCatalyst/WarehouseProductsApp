@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.net.URI;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
@@ -26,11 +27,18 @@ public class S3ImageRepository implements ImageRepository {
                  "Version": "2012-10-17"
              }""";
 
+    private final String endpoint = "http://localhost:7000"; // TODO get from config
+
     private final MinioClient minioClient =
             MinioClient.builder()
-                    .endpoint("http://localhost:7000")
+                    .endpoint(endpoint)
                     .credentials("local.s3", "local.s3")
                     .build();
+
+    @Override
+    public URI getImageUrl(ProductId productId) {
+        return URI.create(endpoint + "/" + bucketName + "/" + productId.value);
+    }
 
     @Override
     public void saveImage(ProductId productId, ImagePayload image) {

@@ -31,32 +31,36 @@ public class ProductController {
 
     @Secured("ROLE_READ_BULK_PRODUCTS")
     @GetMapping(value = "/products", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ProductDto>> getAllProducts() {
+    public ResponseEntity<List<OutputProductDto>> getAllProducts() {
         log.info("Get all products");
 
         final var productDtos = productRepository.getAllProducts().stream()
-                .map(ProductDto::of)
+                .map(product -> OutputProductDto.of(
+                        product,
+                        imageRepository.getImageUrl(product.getId())
+                ))
                 .collect(toList());
         return ResponseEntity.ok(productDtos);
     }
 
     @Secured("ROLE_READ_PRODUCTS")
     @GetMapping(value = "/products/{productId}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ProductDto> getProduct(@PathVariable("productId") ProductId productId) {
+    public ResponseEntity<OutputProductDto> getProduct(@PathVariable("productId") ProductId productId) {
         log.info("Get product {}", productId);
 
         final var product = productRepository.getProduct(productId);
         if (product == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(ProductDto.of(product));
+        final var productImage = imageRepository.getImageUrl(product.getId());
+        return ResponseEntity.ok(OutputProductDto.of(product, productImage));
     }
 
     @Secured("ROLE_WRITE_PRODUCTS")
     @PutMapping(value = "/products/{productId}", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> putProduct(
             @PathVariable("productId") ProductId productId,
-            @RequestBody ProductDto productDto) {
+            @RequestBody InputProductDto productDto) {
         log.info("Put product {}", productId);
 
         final var product = ProductDetails.of(productDto);
