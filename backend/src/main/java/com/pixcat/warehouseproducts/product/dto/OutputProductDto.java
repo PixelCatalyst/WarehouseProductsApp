@@ -1,5 +1,6 @@
-package com.pixcat.warehouseproducts;
+package com.pixcat.warehouseproducts.product.dto;
 
+import com.pixcat.warehouseproducts.product.ProductDetails;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,6 @@
-package com.pixcat.warehouseproducts;
+package com.pixcat.warehouseproducts.image;
+
+import com.pixcat.warehouseproducts.product.ProductId;
 
 import java.net.URI;
 

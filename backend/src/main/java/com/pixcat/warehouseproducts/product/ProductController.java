@@ -1,5 +1,9 @@
-package com.pixcat.warehouseproducts;
+package com.pixcat.warehouseproducts.product;
 
+import com.pixcat.warehouseproducts.product.dto.InputProductDto;
+import com.pixcat.warehouseproducts.product.dto.OutputProductDto;
+import com.pixcat.warehouseproducts.image.ImagePayload;
+import com.pixcat.warehouseproducts.image.ImageRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

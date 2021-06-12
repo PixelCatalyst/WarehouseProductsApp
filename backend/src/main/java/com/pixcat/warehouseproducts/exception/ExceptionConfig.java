@@ -1,4 +1,4 @@
-package com.pixcat.warehouseproducts;
+package com.pixcat.warehouseproducts.exception;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

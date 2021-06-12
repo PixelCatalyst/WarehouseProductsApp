@@ -1,4 +1,4 @@
-package com.pixcat.warehouseproducts;
+package com.pixcat.warehouseproducts.image;
 
 import lombok.Getter;
 import org.apache.commons.io.IOUtils;

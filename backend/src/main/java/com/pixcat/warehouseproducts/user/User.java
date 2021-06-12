@@ -1,4 +1,4 @@
-package com.pixcat.warehouseproducts;
+package com.pixcat.warehouseproducts.user;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package com.pixcat.warehouseproducts;
+package com.pixcat.warehouseproducts.type;
 
 public enum Temperature {
     AMBIENT,

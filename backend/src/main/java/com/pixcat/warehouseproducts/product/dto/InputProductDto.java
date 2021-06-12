@@ -1,4 +1,4 @@
-package com.pixcat.warehouseproducts;
+package com.pixcat.warehouseproducts.product.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

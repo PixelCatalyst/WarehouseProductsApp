@@ -1,5 +1,9 @@
-package com.pixcat.warehouseproducts;
+package com.pixcat.warehouseproducts.product;
 
+import com.pixcat.warehouseproducts.product.dto.InputProductDto;
+import com.pixcat.warehouseproducts.type.Kilograms;
+import com.pixcat.warehouseproducts.type.Millimeters;
+import com.pixcat.warehouseproducts.type.Temperature;
 import lombok.Builder;
 import lombok.Getter;
 

@@ -1,4 +1,4 @@
-package com.pixcat.warehouseproducts;
+package com.pixcat.warehouseproducts.type;
 
 
 import lombok.EqualsAndHashCode;

@@ -1,5 +1,6 @@
-package com.pixcat.warehouseproducts;
+package com.pixcat.warehouseproducts.image;
 
+import com.pixcat.warehouseproducts.product.ProductId;
 import io.minio.*;
 import io.minio.errors.MinioException;
 import lombok.extern.slf4j.Slf4j;

@@ -1,5 +1,6 @@
-package com.pixcat.warehouseproducts;
+package com.pixcat.warehouseproducts.user;
 
+import com.pixcat.warehouseproducts.user.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
