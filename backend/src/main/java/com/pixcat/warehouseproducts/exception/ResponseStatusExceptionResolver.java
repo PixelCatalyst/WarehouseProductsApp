@@ -23,6 +23,8 @@ public class ResponseStatusExceptionResolver extends AbstractHandlerExceptionRes
         try {
             if (toBeResolved instanceof IllegalArgumentException) {
                 response.sendError(HttpStatus.BAD_REQUEST.value());
+            } else {
+                response.sendError(HttpStatus.INTERNAL_SERVER_ERROR.value());
             }
         } catch (IOException ex) {
             log.warn("Unable to resolve exception", ex);

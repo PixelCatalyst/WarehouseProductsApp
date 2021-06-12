@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Builder
 @Getter
@@ -18,4 +19,5 @@ public class InputProductDto {
     private final int widthInMillimeters;
     private final int lengthInMillimeters;
     private final BigDecimal weightInKilograms;
+    private final List<String> barcodes;
 }

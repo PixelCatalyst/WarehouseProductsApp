@@ -7,6 +7,11 @@ import com.pixcat.warehouseproducts.type.Temperature;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
+
 @Getter
 @Builder
 public class ProductDetails {
@@ -19,6 +24,8 @@ public class ProductDetails {
     private final Millimeters length;
     private final Kilograms weight;
 
+    private final List<Barcode> barcodes;
+
     public static ProductDetails of(InputProductDto dto) {
         return builder()
                 .id(ProductId.of(dto.getProductId()))
@@ -28,6 +35,10 @@ public class ProductDetails {
                 .width(Millimeters.of(dto.getWidthInMillimeters()))
                 .length(Millimeters.of(dto.getLengthInMillimeters()))
                 .weight(Kilograms.of(dto.getWeightInKilograms()))
+                .barcodes(dto.getBarcodes() == null ? new ArrayList<>()
+                        : dto.getBarcodes().stream()
+                        .map(Barcode::of)
+                        .collect(toList()))
                 .build();
     }
 }
