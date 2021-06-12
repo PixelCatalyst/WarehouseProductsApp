@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 public class Millimeters {
 
-    public int value;
+    public final int value;
 
     public Millimeters(int value) {
         if (value <= 0) {

@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 public class ProductId {
 
-    public String value;
+    public final String value;
 
     public ProductId(String value) {
         if (value == null || value.isBlank() || value.isEmpty()) {
