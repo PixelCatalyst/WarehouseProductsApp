@@ -1,9 +1,9 @@
 package com.pixcat.warehouseproducts.product;
 
-import com.pixcat.warehouseproducts.product.dto.InputProductDto;
-import com.pixcat.warehouseproducts.product.dto.OutputProductDto;
 import com.pixcat.warehouseproducts.image.ImagePayload;
 import com.pixcat.warehouseproducts.image.ImageRepository;
+import com.pixcat.warehouseproducts.product.dto.InputProductDto;
+import com.pixcat.warehouseproducts.product.dto.OutputProductDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -49,10 +49,23 @@ public class ProductController {
 
     @Secured("ROLE_READ_PRODUCTS")
     @GetMapping(value = "/products/{productId}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<OutputProductDto> getProduct(@PathVariable("productId") ProductId productId) {
+    public ResponseEntity<OutputProductDto> getProductById(@PathVariable("productId") ProductId productId) {
         log.info("Get product {}", productId);
 
-        final var product = productRepository.getProduct(productId);
+        final var product = productRepository.getProductById(productId);
+        if (product == null) {
+            return ResponseEntity.notFound().build();
+        }
+        final var productImage = imageRepository.getImageUrl(product.getId());
+        return ResponseEntity.ok(OutputProductDto.of(product, productImage));
+    }
+
+    @Secured("ROLE_READ_PRODUCTS")
+    @GetMapping(value = "/barcodes/{barcode}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<OutputProductDto> getProductByBarcode(@PathVariable("barcode") Barcode barcode) {
+        log.info("Get product by barcode {}", barcode);
+
+        final var product = productRepository.getProductByBarcode(barcode);
         if (product == null) {
             return ResponseEntity.notFound().build();
         }

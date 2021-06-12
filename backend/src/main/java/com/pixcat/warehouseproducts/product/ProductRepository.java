@@ -50,8 +50,20 @@ public class ProductRepository {
         return new ArrayList<>(inMemoryProducts.values());
     }
 
-    public ProductDetails getProduct(ProductId id) {
+    public ProductDetails getProductById(ProductId id) {
         return inMemoryProducts.get(id);
+    }
+
+    public ProductDetails getProductByBarcode(Barcode barcode) {
+        final var maybeFound = inMemoryProducts.entrySet().stream()
+                .filter(entry -> entry.getValue().getBarcodes().contains(barcode))
+                .findFirst();
+
+        ProductDetails found = null;
+        if (maybeFound.isPresent()) {
+            found = maybeFound.get().getValue();
+        }
+        return found;
     }
 
     public boolean containsProduct(ProductId id) {

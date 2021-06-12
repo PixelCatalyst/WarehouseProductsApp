@@ -24,7 +24,8 @@ public class ProductDetails {
     private final Millimeters length;
     private final Kilograms weight;
 
-    private final List<Barcode> barcodes;
+    @Builder.Default
+    private final List<Barcode> barcodes = new ArrayList<>();
 
     public static ProductDetails of(InputProductDto dto) {
         return builder()
