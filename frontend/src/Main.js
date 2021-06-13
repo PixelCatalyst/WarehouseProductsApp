@@ -1,18 +1,24 @@
 import React, {Component} from "react";
+import {BrowserRouter, NavLink, Route} from "react-router-dom";
+import BrowseProducts from "./BrowseProducts";
+import About from "./About";
 
 class Main extends Component {
     render() {
         return (
-            <div>
-                <h1>Simple SPA</h1>
-                <ul className="header">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/stuff">Stuff</a></li>
-                </ul>
-                <div className="content">
-
+            <BrowserRouter>
+                <div>
+                    <h1>Warehouse Products</h1>
+                    <ul className="header">
+                        <li><NavLink exact to="/">Browse Products</NavLink></li>
+                        <li><NavLink to="/about">About</NavLink></li>
+                    </ul>
+                    <div className="content">
+                        <Route path="/" exact component={BrowseProducts}/>
+                        <Route path="/about" exact component={About}/>
+                    </div>
                 </div>
-            </div>
+            </BrowserRouter>
         );
     }
 }
