@@ -88,6 +88,9 @@ public class ProductRepository {
     }
 
     public void createProduct(ProductId id, ProductDetails details) {
+        jdbcTemplate.update("DELETE FROM warehouse_products.barcodes barcodes WHERE barcodes.product_id = ?", id.value);
+        jdbcTemplate.update("DELETE FROM warehouse_products.details dets WHERE dets.product_id = ?", id.value);
+
         jdbcTemplate.update("INSERT INTO warehouse_products.details (product_id, description, storage_temp, height, width, length, weight) VALUES (?, ?, ?, ?, ?, ?, ?)",
                 id.value,
                 details.getDescription(),
@@ -97,7 +100,6 @@ public class ProductRepository {
                 details.getLength().value,
                 details.getWeight().value
         );
-
         final var barcodes = details.getBarcodes();
         jdbcTemplate.batchUpdate("INSERT INTO warehouse_products.barcodes (barcode, product_id) VALUES (?, ?)", new BatchPreparedStatementSetter() {
             @Override
