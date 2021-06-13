@@ -9,6 +9,7 @@ function help() {
   echo "Commands:"
   printf "  build\t\t\tPerform clean build of all services\n"
   printf "  run\t\t\tPerform clean build, recreate and run all containers in docker-compose\n"
+  printf "  run-deps\t\t\tRun all dependencies of the main app in docker-compose\n"
   printf "  create-test-users\tRegister test user accounts in the app\n"
   printf "  stop\t\t\tStop and remove all running containers\n"
 }
@@ -20,6 +21,9 @@ case "$1" in
 "run")
   gradle clean build
   docker-compose up -d --build
+  ;;
+"run-deps")
+  docker-compose up -d postgres minio-s3
   ;;
 "create-test-users")
   printf "Creating test user credentials as read-only: jan.kowalski_ro husky1...\n"
