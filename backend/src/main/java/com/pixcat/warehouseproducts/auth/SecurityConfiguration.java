@@ -51,7 +51,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeRequests()
-                .antMatchers("/register", "/users").permitAll()
+                .antMatchers("/register", "/users", "/", "/static/**").permitAll()
                 .anyRequest().authenticated()
                 .and().httpBasic().realmName("WarehouseProducts")
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
