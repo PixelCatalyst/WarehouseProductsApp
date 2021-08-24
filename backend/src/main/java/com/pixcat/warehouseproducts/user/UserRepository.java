@@ -27,6 +27,8 @@ public class UserRepository {
             WHERE users.username = ?
             """;
 
+    private static final String ROLE_PREFIX = "ROLE_";
+
     private final JdbcTemplate jdbcTemplate;
 
     public UserRepository(JdbcTemplate jdbcTemplate) {
@@ -44,7 +46,7 @@ public class UserRepository {
             jdbcTemplate.update(
                     INSERT_ROLE_STATEMENT,
                     user.getUsername(),
-                    "ROLE_" + role);
+                    role.startsWith(ROLE_PREFIX) ? role : ROLE_PREFIX + role);
         }
     }
 
